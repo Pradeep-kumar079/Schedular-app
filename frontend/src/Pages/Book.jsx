@@ -45,47 +45,85 @@ const Book = () => {
   }, [userId]);
 
   // ✅ BOOK FUNCTION
+  // const book = async () => {
+  //   let finalDate, finalTime, finalDay;
+
+  //   if (selectedSlot) {
+  //     finalDate =
+  //       selectedSlot.date ||
+  //       new Date().toISOString().split("T")[0];
+  //     finalTime = selectedSlot.time;
+  //     finalDay = selectedSlot.day;
+  //   } else if (manualDate && manualTime) {
+  //     finalDate = manualDate;
+  //     finalTime = manualTime;
+  //     finalDay = new Date(manualDate).toLocaleDateString("en-US", {
+  //       weekday: "long",
+  //     });
+  //   } else {
+  //     return toast.error("Select slot or choose manually");
+  //   }
+
+  //   if (!email) {
+  //     return toast.error("Enter your email");
+  //   }
+
+  //   try {
+  //     await axios.post("http://localhost:5000/api/booking", {
+  //       userId,
+  //       date: finalDate,
+  //       time: finalTime,
+  //       bookedBy: email,
+  //     });
+
+  //     toast.success(
+  //       `🎉 Booked on ${finalDay}, ${finalDate} at ${finalTime}`
+  //     );
+
+  //     setConfirmed(true);
+
+  //   } catch (err) {
+  //     toast.error(err.response?.data || "Booking failed");
+  //   }
+  // };
   const book = async () => {
-    let finalDate, finalTime, finalDay;
+  let finalDate, finalTime, finalDay;
 
-    if (selectedSlot) {
-      finalDate =
-        selectedSlot.date ||
-        new Date().toISOString().split("T")[0];
-      finalTime = selectedSlot.time;
-      finalDay = selectedSlot.day;
-    } else if (manualDate && manualTime) {
-      finalDate = manualDate;
-      finalTime = manualTime;
-      finalDay = new Date(manualDate).toLocaleDateString("en-US", {
-        weekday: "long",
-      });
-    } else {
-      return toast.error("Select slot or choose manually");
-    }
+  if (selectedSlot) {
+    finalDate = selectedSlot.date;
+    finalTime = selectedSlot.time;
+    finalDay = selectedSlot.day;
+  } else if (manualDate && manualTime) {
+    finalDate = manualDate;
+    finalTime = manualTime;
+    finalDay = new Date(manualDate).toLocaleDateString("en-US", {
+      weekday: "long",
+    });
+  } else {
+    return toast.error("Select slot or choose manually");
+  }
 
-    if (!email) {
-      return toast.error("Enter your email");
-    }
+  if (!email) {
+    return toast.error("Enter your email");
+  }
 
-    try {
-      await axios.post("http://localhost:5000/api/booking", {
-        userId,
-        date: finalDate,
-        time: finalTime,
-        bookedBy: email,
-      });
+  try {
+    const res = await axios.post("http://localhost:5000/api/booking", {
+      userId,
+      date: finalDate,
+      time: finalTime,
+      bookedBy: email,
+    });
 
-      toast.success(
-        `🎉 Booked on ${finalDay}, ${finalDate} at ${finalTime}`
-      );
+    // ✅ show backend message
+    toast.success(res.data.message);
 
-      setConfirmed(true);
+    setConfirmed(true);
 
-    } catch (err) {
-      toast.error(err.response?.data || "Booking failed");
-    }
-  };
+  } catch (err) {
+    toast.error(err.response?.data || "Booking failed");
+  }
+};
 
   // ✅ CONFIRMATION UI
   if (confirmed) {

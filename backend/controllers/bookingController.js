@@ -6,12 +6,14 @@ exports.createBooking = async (req, res) => {
   try {
     const { userId, date, time, bookedBy } = req.body;
 
+    // ✅ check existing booking
     const existing = await Booking.findOne({ userId, date, time });
 
     if (existing) {
       return res.status(400).json("Slot already booked");
     }
 
+    // ✅ create booking
     const booking = await Booking.create({
       userId,
       date,
@@ -19,13 +21,13 @@ exports.createBooking = async (req, res) => {
       bookedBy,
     });
 
-    // 🔥 FORMAT DAY
+    // ✅ get day name
     const day = new Date(date).toLocaleDateString("en-US", {
       weekday: "long",
     });
 
-    // 🔥 SEND EMAIL
-    await sendEmail(
+    // ✅ send email
+    const emailSent = await sendEmail(
       bookedBy,
       "🎉 Booking Confirmed",
       `
@@ -41,7 +43,13 @@ exports.createBooking = async (req, res) => {
       `
     );
 
-    res.json(booking);
+    // ✅ response with message
+    res.json({
+      booking,
+      message: emailSent
+        ? "Booking successful & email sent ✅"
+        : "Booking successful but email failed ❌",
+    });
 
   } catch (err) {
     res.status(500).json(err.message);
