@@ -18,7 +18,10 @@ const Book = () => {
 
   const [confirmed, setConfirmed] = useState(false);
 
-  // ✅ FETCH DATA (SAFE)
+  // ✅ NEW: store final booking details
+  const [finalDetails, setFinalDetails] = useState(null);
+
+  // ✅ FETCH DATA
   useEffect(() => {
     if (!userId) return;
 
@@ -41,89 +44,60 @@ const Book = () => {
         setBookedSlots(Array.isArray(res.data) ? res.data : []);
       })
       .catch(() => setBookedSlots([]));
-
   }, [userId]);
 
   // ✅ BOOK FUNCTION
-  // const book = async () => {
-  //   let finalDate, finalTime, finalDay;
-
-  //   if (selectedSlot) {
-  //     finalDate =
-  //       selectedSlot.date ||
-  //       new Date().toISOString().split("T")[0];
-  //     finalTime = selectedSlot.time;
-  //     finalDay = selectedSlot.day;
-  //   } else if (manualDate && manualTime) {
-  //     finalDate = manualDate;
-  //     finalTime = manualTime;
-  //     finalDay = new Date(manualDate).toLocaleDateString("en-US", {
-  //       weekday: "long",
-  //     });
-  //   } else {
-  //     return toast.error("Select slot or choose manually");
-  //   }
-
-  //   if (!email) {
-  //     return toast.error("Enter your email");
-  //   }
-
-  //   try {
-  //     await axios.post("http://localhost:5000/api/booking", {
-  //       userId,
-  //       date: finalDate,
-  //       time: finalTime,
-  //       bookedBy: email,
-  //     });
-
-  //     toast.success(
-  //       `🎉 Booked on ${finalDay}, ${finalDate} at ${finalTime}`
-  //     );
-
-  //     setConfirmed(true);
-
-  //   } catch (err) {
-  //     toast.error(err.response?.data || "Booking failed");
-  //   }
-  // };
   const book = async () => {
-  let finalDate, finalTime, finalDay;
+    let finalDate, finalTime, finalDay;
 
-  if (selectedSlot) {
-    finalDate = selectedSlot.date;
-    finalTime = selectedSlot.time;
-    finalDay = selectedSlot.day;
-  } else if (manualDate && manualTime) {
-    finalDate = manualDate;
-    finalTime = manualTime;
-    finalDay = new Date(manualDate).toLocaleDateString("en-US", {
-      weekday: "long",
-    });
-  } else {
-    return toast.error("Select slot or choose manually");
-  }
+    if (selectedSlot) {
+      finalDate = selectedSlot.date;
+      finalTime = selectedSlot.time;
+      finalDay = selectedSlot.day;
+    } else if (manualDate && manualTime) {
+      finalDate = manualDate;
+      finalTime = manualTime;
+      finalDay = new Date(manualDate).toLocaleDateString("en-US", {
+        weekday: "long",
+      });
+    } else {
+      return toast.error("Select slot or choose manually");
+    }
 
-  if (!email) {
-    return toast.error("Enter your email");
-  }
+    if (!email) {
+      return toast.error("Enter your email");
+    }
 
-  try {
-    const res = await axios.post("http://localhost:5000/api/booking", {
-      userId,
-      date: finalDate,
-      time: finalTime,
-      bookedBy: email,
-    });
+    try {
+      const res = await axios.post("http://localhost:5000/api/booking", {
+        userId,
+        date: finalDate,
+        time: finalTime,
+        bookedBy: email,
+      });
 
-    // ✅ show backend message
-    toast.success(res.data.message);
+      // ✅ store final booking details
+      setFinalDetails({
+        email,
+        day: finalDay,
+        date: finalDate,
+        time: finalTime,
+      });
 
-    setConfirmed(true);
+      toast.success(res.data.message);
 
-  } catch (err) {
-    toast.error(err.response?.data || "Booking failed");
-  }
-};
+      // ✅ clear inputs
+      setEmail("");
+      setSelectedSlot(null);
+      setManualDate("");
+      setManualTime("");
+
+      setConfirmed(true);
+
+    } catch (err) {
+      toast.error(err.response?.data || "Booking failed");
+    }
+  };
 
   // ✅ CONFIRMATION UI
   if (confirmed) {
@@ -131,18 +105,21 @@ const Book = () => {
       <div className="book-container">
         <div className="book-card">
           <h2>🎉 Booking Confirmed</h2>
-          <p><strong>Email:</strong> {email}</p>
-          <p><strong>Day:</strong> {selectedSlot?.day}</p>
-          <p><strong>Time:</strong> {selectedSlot?.time}</p>
+          <p><strong>Email:</strong> {finalDetails?.email}</p>
+          <p><strong>Day:</strong> {finalDetails?.day}</p>
+          <p><strong>Date:</strong> {finalDetails?.date}</p>
+          <p><strong>Time:</strong> {finalDetails?.time}</p>
         </div>
       </div>
     );
   }
 
-  // ✅ UNIQUE DAYS FROM AVAILABILITY
+  // ✅ UNIQUE DAYS
   const uniqueDays = [
     ...new Set((Array.isArray(slots) ? slots : []).map((s) => s.day)),
   ];
+
+  const todayDate = new Date().toISOString().split("T")[0];
 
   return (
     <div className="book-container">
@@ -154,6 +131,7 @@ const Book = () => {
         <input
           type="email"
           placeholder="Enter your email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
@@ -172,8 +150,11 @@ const Book = () => {
                 .filter((s) => s.day === day)
                 .map((s, j) => {
 
+                  // ✅ FIX: check date + time
                   const isBooked = bookedSlots.some(
-                    (b) => b.time === s.startTime
+                    (b) =>
+                      b.time === s.startTime &&
+                      b.date === todayDate
                   );
 
                   const isSelected =
@@ -188,20 +169,15 @@ const Book = () => {
                         isSelected ? "selected" : ""
                       } ${isBooked ? "booked" : ""}`}
                       onClick={() => {
-
-                        // 🔥 TOGGLE SELECT / UNSELECT
                         if (isSelected) {
                           setSelectedSlot(null);
                         } else {
                           setSelectedSlot({
                             day,
-                            date: new Date()
-                              .toISOString()
-                              .split("T")[0],
+                            date: todayDate,
                             time: s.startTime,
                           });
 
-                          // clear manual
                           setManualDate("");
                           setManualTime("");
                         }
@@ -222,6 +198,7 @@ const Book = () => {
 
         <input
           type="date"
+          value={manualDate}
           onChange={(e) => {
             setManualDate(e.target.value);
             setSelectedSlot(null);
@@ -230,6 +207,7 @@ const Book = () => {
 
         <input
           type="time"
+          value={manualTime}
           onChange={(e) => {
             setManualTime(e.target.value);
             setSelectedSlot(null);
