@@ -26,7 +26,7 @@ const Book = () => {
     if (!userId) return;
 
     axios
-      .get(`http://localhost:5000/api/availability/${userId}`)
+      .get(`https://schedular-app-eom4.onrender.com/api/availability/${userId}`)
       .then((res) => {
         if (Array.isArray(res.data)) {
           setSlots(res.data);
@@ -39,7 +39,7 @@ const Book = () => {
       .catch(() => setSlots([]));
 
     axios
-      .get(`http://localhost:5000/api/booking/${userId}`)
+      .get(`https://schedular-app-eom4.onrender.com/api/booking/${userId}`)
       .then((res) => {
         setBookedSlots(Array.isArray(res.data) ? res.data : []);
       })
@@ -69,7 +69,7 @@ const Book = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/booking", {
+      const res = await axios.post("https://schedular-app-eom4.onrender.com/api/booking", {
         userId,
         date: finalDate,
         time: finalTime,

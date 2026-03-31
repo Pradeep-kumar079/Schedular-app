@@ -20,7 +20,7 @@ const AvailabilityForm = ({ userId, refresh }) => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/availability", {
+      await axios.post("https://schedular-app-eom4.onrender.com/api/availability", {
         ...form,
         userId,
       });

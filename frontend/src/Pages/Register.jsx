@@ -26,7 +26,7 @@ const Register = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://schedular-app-eom4.onrender.com/api/auth/register",
         form
       );
 

@@ -15,7 +15,7 @@ function App() {
       <Toaster position="top-center" /> {/* 🔥 Toast here */}
 
       <Routes>
-        <Route path="/" element={<Register />} />
+        <Route path="*" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
 

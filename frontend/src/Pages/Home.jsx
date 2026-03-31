@@ -11,7 +11,7 @@ const Home = () => {
 
   const fetchSlots = async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/availability/${user._id}`
+      `https://schedular-app-eom4.onrender.com/api/availability/${user._id}`
     );
     setSlots(res.data);
   };
@@ -20,7 +20,7 @@ const Home = () => {
     fetchSlots();
   }, []);
 
-  const link = `http://localhost:3000/book/${user._id}`;
+  const link = `https://schedular-app-1.onrender.com/book/${user._id}`;
 
   return (
     <div className="home-container">
