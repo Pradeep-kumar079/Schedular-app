@@ -1,0 +1,81 @@
+/* Container */
+.home-container {
+  background: #f1f5f9;
+  min-height: 100vh;
+}
+
+/* Content */
+.home-content {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+}
+
+/* Subtitle */
+.subtitle {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Booking link */
+.link-box {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.link-box input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.link-box button {
+  padding: 10px 15px;
+  background: #3b82f6;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.link-box button:hover {
+  background: #2563eb;
+}
+
+/* Slots */
+.slots {
+  margin-top: 10px;
+}
+
+/* Slot item */
+.slot-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f9fafb;
+  margin-bottom: 8px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .link-box {
+    flex-direction: column;
+  }
+
+  .slot-item {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

@@ -1,0 +1,104 @@
+/* Container */
+.account-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f5f9;
+}
+
+/* Card */
+.account-card {
+  width: 350px;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Profile header */
+.profile-header {
+  margin-bottom: 20px;
+}
+
+/* Avatar */
+.avatar {
+  width: 70px;
+  height: 70px;
+  background: #3b82f6;
+  color: white;
+  font-size: 28px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+/* Email */
+.email {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Info section */
+.account-info {
+  margin-top: 20px;
+}
+
+.info-item {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.info-item span {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.info-item p {
+  margin: 2px 0 0;
+  font-weight: 500;
+}
+
+/* Buttons */
+.account-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.edit {
+  background: #3b82f6;
+  color: white;
+}
+
+.logout {
+  background: #ef4444;
+  color: white;
+}
+
+.edit:hover {
+  background: #2563eb;
+}
+
+.logout:hover {
+  background: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .account-card {
+    width: 90%;
+  }
+}

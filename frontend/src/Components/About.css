@@ -1,0 +1,54 @@
+.about-container {
+  min-height: 100vh;
+  background: #f1f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.about-card {
+  max-width: 800px;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.description {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+/* Sections */
+.section {
+  margin-top: 20px;
+}
+
+.section h2 {
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.section li {
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-card {
+    padding: 20px;
+  }
+}

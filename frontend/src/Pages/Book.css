@@ -1,0 +1,180 @@
+/* Container */
+.book-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f5f9;
+}
+
+/* Card */
+.book-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 350px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Title */
+.title {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+/* Subtitle */
+.subtitle {
+  margin: 15px 0;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Slot container */
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Slot button */
+.slot-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: white;
+  cursor: pointer;
+}
+
+/* Selected slot */
+.slot-btn.selected {
+  background: #1d4ed8;
+}
+
+/* Booked slot */
+.slot-btn.booked {
+  background: #75ba9f;
+  cursor: not-allowed;
+}
+
+/* Confirm button */
+.confirm-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #10b981;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background: #059669;
+}
+.book-card p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+.slots-container {
+  margin-top: 15px;
+}
+
+.day-block {
+  margin-bottom: 20px;
+}
+
+.day-block h4 {
+  margin-bottom: 10px;
+  color: #374151;
+}
+
+.slots {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.book-card p {
+  margin: 8px 0;
+}
+.day-preview {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.selected-slot {
+  margin-top: 15px;
+  padding: 10px;
+  background: #ecfdf5;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.book-card p {
+  margin: 8px 0;
+}
+.slots-container {
+  margin-top: 15px;
+}
+
+.day-block {
+  margin-bottom: 20px;
+}
+
+.day-block h4 {
+  margin-bottom: 10px;
+  color: #374151;
+}
+
+.slots {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.selected-slot {
+  margin-top: 15px;
+  padding: 10px;
+  background: #ecfdf5;
+  border-radius: 8px;
+  text-align: center;
+}
+.day-block {
+  margin-bottom: 20px;
+}
+
+.slots {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.slot-btn {
+  padding: 8px 12px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 6px;
+  border: none;
+}
+
+.selected-slot {
+  margin-top: 15px;
+  background: #80a791;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
